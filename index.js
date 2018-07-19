@@ -28,6 +28,23 @@ async function doTheThingsGoStyle() {
   } else {
     console.error('We failed.')
   }
+
+
+  // Want a reusable error variable? Just define it upfront
+  const result;
+  let error;
+  [error, result] = await to(step1Async());
+
+  
+  [error] = await to(step1Async());
+
+  console.log('We reused the the error!')
+}
+
+function throwAnErrorAsync() {
+  return new Promise((resolve, reject) => {
+    reject('There was an error! AHHHHHH! Hide!');
+  })
 }
 
 async function doTheThingAsync() {
