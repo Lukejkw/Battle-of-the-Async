@@ -14,7 +14,7 @@ async function doTheThingsGoStyle() {
   const [step1Err, result] = await to(step1Async());
 
   if (step1Err) {
-    // Look ma! I can handle errors like the good ol' days
+    // Look ma! I can handle errors like the good ol' days :)
     console.error('There was an error homie: ', step1Err);
   }
 
@@ -22,19 +22,17 @@ async function doTheThingsGoStyle() {
   const result2 = await step2Async(result);
 
   // Only care for errors? 
-  const [error] = await to(step3Async(result2));
-  if(!error) {
+  const [err] = await to(step3Async(result2));
+  if(!err) {
     console.log('We did it!')
   } else {
     console.error('We failed.')
   }
 
 
-  // Want a reusable error variable? Just define it upfront
-  const result;
-  let error;
-  [error, result] = await to(step1Async());
-
+  // Want a reusable variables? Just define them upfront
+  let data, error;
+  [error, data] = await to(step1Async());
   
   [error] = await to(step1Async());
 
@@ -68,7 +66,7 @@ function doTheThingWaterfall() {
   });
 }
 
-function doTheThing() {
+function doTheThingCallback() {
   step1("...", function(err, value) {
     if (err) {
       // Ah!!!!
