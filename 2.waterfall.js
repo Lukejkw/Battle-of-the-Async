@@ -2,7 +2,6 @@
 const async = require("async");
 
 function step1(callback) {
-  console.log("step 1");
   callback(null, "goats");
 }
 
@@ -20,6 +19,6 @@ async.waterfall([step1, step2, step3], (err, param) => {
   if (err) {
     console.log("error", err);
   }
-
   console.log(param);
+  console.log("done");
 });

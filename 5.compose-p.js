@@ -1,3 +1,7 @@
+const { composeP, tap } = require("ramda");
+
+const probe = tap(v => console.log(`${v}\ndone`));
+
 const step1 = () =>
   new Promise(resolve => {
     resolve("goats");
@@ -15,14 +19,14 @@ const step3 = param =>
     resolve("awesome");
   });
 
+const run = composeP(
+  probe,
+  step3,
+  step2,
+  step1
+);
 
-  
-async function run() {
-  const result = await step1();
-  const result2 = await step2(result);
-  const result3 = await step3(result2);
-  console.log(result3);
-  console.log("done");
-}
-
-run();
+run().catch(err => {
+  // Try/catch?! Gross!
+  console.log("err", err);
+});

@@ -1,6 +1,7 @@
-// I dont love this name
-const to = promise =>
-  promise.then(data => [null, data]).catch(err => [err, undefined]);
+// I dont love this name. Any ideas?? errorFirst?
+const to = promise => promise
+    .then(data => [null, data])
+    .catch(err => [err, undefined]);
 
 const step1 = () =>
   new Promise(resolve => {
@@ -18,6 +19,35 @@ const step3 = param =>
     console.log(param);
     resolve("awesome");
   });
+
+async function run() {
+  const [step1Err, step1Result] = await to(step1());
+  if (step1Err) {
+    // Look ma! I can handle errors like the good ol' days :)
+    console.error("Error:", step1Err);
+    return;
+  }
+
+  const [step2Err, step2Result] = await to(step2(step1Result));
+  if (step2Err) {
+    console.error("Error:", step2Err);
+    return;
+  }
+
+  const [step3Err, step3Result] = await to(step3(step2Result));
+  if (step3Err) {
+    console.error("Error:", step3Err);
+    return;
+  }
+
+  console.log(step3Result);
+  console.log("done");
+}
+
+run();
+
+// run1();
+// run2();
 
 async function run1() {
   const [step1Err, step1Result] = await to(step1());
@@ -59,6 +89,3 @@ async function run2() {
     "We reused the error and data variables! \n(Might be a code smell but who cares?!)"
   );
 }
-
-run1();
-run2();
