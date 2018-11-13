@@ -1,26 +1,27 @@
-// I dont love this name. Any ideas?? errorFirst?
+// NOTE: This is not going to be everyone's cup of tea. It is just
+// another way of handling error in promises
+// Reference: blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/
+
+// Converts a promise to an error first "tuple" return
 const to = promise => promise
     .then(data => [null, data])
     .catch(err => [err, undefined]);
 
-const step1 = () =>
-  new Promise(resolve => {
-    resolve("goats");
-  });
+const step1 = () => Promise.resolve("goats");
 
-const step2 = param =>
-  new Promise(resolve => {
-    console.log(param);
-    resolve("are");
-  });
+const step2 = param => new Promise(resolve => {
+  console.log(param);
+  resolve("are");
+});
 
-const step3 = param =>
-  new Promise(resolve => {
-    console.log(param);
-    resolve("awesome");
-  });
+const step3 = param => new Promise(resolve => {
+  console.log(param);
+  resolve("awesome");
+});
 
 async function run() {
+  // The call now returns an array. We then use array destructuring to
+  // create a tuple of sorts. (Looks similar to (err, result) => { ... } doesn't it)
   const [step1Err, step1Result] = await to(step1());
   if (step1Err) {
     // Look ma! I can handle errors like the good ol' days :)
@@ -67,10 +68,10 @@ async function run1() {
     return console.log("Error", error);
   }
 
-  console.error("Done");
+  console.log("Done");
 }
 
-const throwAnErrorAsync = () =>
+const createRejectedPromise = () =>
   Promise.reject("There was an error! AHHHHHH! Hide!");
 
 async function run2() {
@@ -78,7 +79,7 @@ async function run2() {
   let data, error;
   [error, data] = await to(step1());
 
-  [error] = await to(throwAnErrorAsync());
+  [error] = await to(createRejectedPromise());
   if (error) {
     console.error("An error happened but we will forge on!");
   }

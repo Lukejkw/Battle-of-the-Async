@@ -4,12 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "callback": "node 1.callback.js",
-    "waterfall": "node 2.waterfall.js",
-    "promises": "node 3.promises.js",
-    "async-await": "node 4.async-await.js",
-    "compose-p": "node 5.compose-p.js",
-    "error-first-promises": "node 6.error-first-promise.js"
+    "start": "echo 'What were you expecting this to start?'"
   },
   "repository": {
     "type": "git",
@@ -23,6 +18,7 @@
   "homepage": "https://github.com/Lukejkw/Battle-of-the-Async#readme",
   "dependencies": {
     "async": "^2.6.1",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "rxjs": "^6.3.3"
   }
 }

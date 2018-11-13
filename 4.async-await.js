@@ -1,7 +1,4 @@
-const step1 = () =>
-  new Promise(resolve => {
-    resolve("goats");
-  });
+const step1 = () => Promise.resolve("goats");
 
 const step2 = param =>
   new Promise(resolve => {
