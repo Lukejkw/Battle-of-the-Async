@@ -30,17 +30,3 @@ step1()
   .catch(error => {
     console.log("an error happened");
   });
-
-// DONT DO THIS!
-// step1()
-//   .then(result =>
-//     step2(result).then(result =>
-//       step3(result).then(result => {
-//         console.log(result);
-//         console.log("done");
-//       })
-//     )
-//   )
-//   .catch(error => {
-//     console.log("an error happened");
-//   });
