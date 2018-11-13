@@ -14,15 +14,17 @@ const step3 = param =>
     console.log(param);
     resolve("awesome");
   });
-
-
   
 async function run() {
-  const result = await step1();
-  const result2 = await step2(result);
-  const result3 = await step3(result2);
-  console.log(result3);
-  console.log("done");
+  try {
+    const result = await step1();
+    const result2 = await step2(result);
+    const result3 = await step3(result2);
+    console.log(result3);
+    console.log("done");
+  } catch(e) {
+    console.error(e);
+  }
 }
 
 run();
