@@ -33,4 +33,4 @@ const processGoatMessages$ = step1$.pipe(
 );
 
 // 3. Lastly we subscribe to start processing emitted values
-processGoatMessages$.subscribe(console.log);
+processGoatMessages$.subscribe(v => console.log(`${v}\ndone`));

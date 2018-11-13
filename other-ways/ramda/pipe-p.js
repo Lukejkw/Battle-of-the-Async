@@ -1,4 +1,4 @@
-const { composeP, pipeP, tap } = require("ramda");
+const { pipeP, tap } = require("ramda");
 
 const probe = tap(v => console.log(`${v}\ndone`));
 
@@ -19,27 +19,14 @@ const step3 = param =>
     resolve("awesome");
   });
 
-const run = composeP(
-  probe,
-  step3,
+// probe(step3(step2(step1())));
+const run = pipeP(
+  step1,
   step2,
-  step1
+  step3,
+  probe,
 );
 
-
-
 run().catch(err => {
-  // Try/catch?! Gross!
   console.log("err", err);
 });
-
-
-// Other examples
-// const runPipe = pipeP(
-//   step1,
-//   step2,
-//   step3,
-//   probe,
-// );
-
-// const runNested = () => probe(step3(step2(step1())));
